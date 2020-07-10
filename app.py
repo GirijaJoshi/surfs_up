@@ -35,7 +35,9 @@ def welcome():
     /api/v1.0/precipitation<br>
     /api/v1.0/stations<br>
     /api/v1.0/tobs<br>
+    /api/v1.0/temp/start<br>
     /api/v1.0/temp/start/end<br>
+    /api/v1.0/stat/month_num<br>
     ''')
 
 
@@ -85,6 +87,21 @@ def stats(start=None, end=None):
         filter(Measurement.date <= end).all()
     temps = list(np.ravel(results))
     return jsonify(temps=temps)
+
+
+@app.route("/api/v1.0/stat/<month_num>")
+def month_stat(month_num):
+    year_sel = [func.min(Measurement.date), func.max(Measurement.date)]
+    results = session.query(*year_sel).all()
+    # print(f"start:{results[0][0].split('-')[0]}, end:{results[0][1].split('-')[0]}")
+    # years = results[0][0].split('-')[0], results[0][1].split('-')[0]
+    sel = [Measurement.date, Measurement.prcp, Measurement.tobs, Measurement.station]
+    start = f"{results[0][0].split('-')[0]}-{month_num}-01"
+    end = f"{results[0][1].split('-')[0]}-{month_num}-30"
+    results = session.query(*sel).filter(Measurement.date >= results[0][0].split('-')[0]).\
+        filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+    stats = list(np.ravel(results))
+    return jsonify(stats=stats)
 
 
 # # create a first starting point as a root

@@ -59,6 +59,6 @@ As seen in fligures below for temperature and precipitation. As Hawaii has temp 
 ### Average December Temperature for all stations
 ![dec_temp_for_all_stations](output/dec_temp_des.PNG)
 ### Average June Precipitation for all stations
-![june_prcp_for_all_stations](output/june_prcp.PNG)
+![june_prcp_for_all_stations](output/june_prcp.png)
 ### Average December Precipitation for all stations
-![dec_prcp_for_all_stattions](output/dec_prcp.PNG)
+![dec_prcp_for_all_stattions](output/dec_prcp.png)
